@@ -15,7 +15,9 @@
 	<insert id="signUp" parameterType="map">
 		INSERT INTO alt.accounts(name, password) VALUES(#{reqId},#{reqPwd})
 	</insert>
-	
+	<select id="tochar" resultType="clientVO" parameterType="String">
+		SELECT * FROM alt.players where name = #{lId}
+	</select>
 	
 	
 	

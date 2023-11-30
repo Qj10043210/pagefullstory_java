@@ -1,8 +1,12 @@
 package com.ajar.pagefullstory.client;
 
 import java.text.DateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -22,6 +26,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class ClientController {
 	@Autowired
 	private ClientService csv;
+	
+	
 	
 	@RequestMapping(value="/login", method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
@@ -61,4 +67,26 @@ public class ClientController {
 	    }
 
 	}
+	
+	@RequestMapping(value="/tochar", method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public List<ClientVO> tochar(HttpSession session) {
+		List<ClientVO> mav = new ArrayList<>();
+		try {
+			if(session.getAttribute("loginedId")!=null){
+				String lId = (String) session.getAttribute("loginedId");
+				mav = csv.tochar(lId);
+				
+			}else {
+				
+			}
+	    } catch (Exception e) {
+	        
+	    	e.printStackTrace();
+	    	
+	    }
+		return mav;
+		
+	}
+	
 }

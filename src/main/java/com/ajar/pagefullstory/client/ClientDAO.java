@@ -1,6 +1,8 @@
 package com.ajar.pagefullstory.client;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
@@ -16,6 +18,8 @@ public class ClientDAO {
 	
 	@Autowired
 	JdbcTemplate jdbcTemplate;
+	
+	
 	
 	@Autowired
 	private SqlSession sqlSession;
@@ -43,6 +47,30 @@ public class ClientDAO {
 		sqlSession.insert("mapper.clientMap.signUp", params);
 		
 	}
+
+
+
+	public List<ClientVO> tochar(String lId) {
+		List<ClientVO> mav;
+		try {
+		    mav = sqlSession.selectList("mapper.clientMap.tochar", lId);
+
+		    
+		    if (mav == null || mav.isEmpty()) {
+		        mav = new ArrayList<>();
+		    }
+		} catch (Exception e) {
+		 
+		    mav = new ArrayList<>();
+		    e.printStackTrace();
+		}
+
+		return mav;
+	}
+
+
+
+	
 	
 	
 	
