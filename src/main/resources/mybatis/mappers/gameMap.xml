@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+      PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.gameMap">
+	<insert id="checkScoreRSP" parameterType="String">
+		 INSERT INTO alt.rsp (p_name)
+        SELECT #{lId}
+        WHERE NOT EXISTS (SELECT 1 FROM alt.rsp WHERE p_name = #{lId});
+	</insert>
+	<select id="getScoreRSP" parameterType="String" resultType="gameVO">
+		 SELECT rsp.*, players.p_level, players.p_maxHp, players.p_curHp,
+               players.p_str, players.p_dex, players.p_int, players.p_luk,
+               players.p_exp, players.p_balance
+        FROM alt.rsp rsp
+        LEFT JOIN alt.players ON rsp.p_name = players.p_name
+        WHERE rsp.p_name = #{pName};
+	</select>
+</mapper>

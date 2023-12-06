@@ -4,6 +4,8 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -34,11 +36,22 @@ public class HomeController {
 		return "home";
 	}
 	@RequestMapping(value = "/index", method = RequestMethod.GET)
-	public String index(Locale locale, Model model) {
-		
-		
-		
-		
+	public String index(Locale locale, Model model) {		
+		return "index";
+	}
+	@RequestMapping(value = "/rsp", method = RequestMethod.GET)
+	public String rsp(Locale locale, Model model, HttpSession session) {
+		try {
+			if(session.getAttribute("loginedId")!=null){
+				return "rsp";
+			}
+			
+	    } catch (Exception e) {
+	        
+	        e.printStackTrace();
+	        return "index";
+	        
+	    }
 		return "index";
 	}
 	
